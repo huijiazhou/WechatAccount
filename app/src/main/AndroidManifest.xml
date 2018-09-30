@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.moxi.wechatpay">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.moxi.wechatpay.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".access.AirAccessibilityService"
+            android:enabled="true"
+            android:exported="true"
+            android:label="@string/label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+        <service android:name=".getdb.MoxiPayService"></service>
+        <receiver android:name=".getdb.MoxiPayReceiver">
+            <intent-filter>
+                <action android:name="com.moxi.wechatpay.TIMER_ACTION_REPEATING" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".getdb.RecuseReceiver">
+            <intent-filter>
+                <action android:name="com.moxi.killedPayService" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
